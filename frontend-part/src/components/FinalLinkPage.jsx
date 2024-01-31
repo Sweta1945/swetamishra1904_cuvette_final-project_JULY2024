@@ -4,7 +4,7 @@ import "../styles/FinalLinkPage.css"
 
 const FinalLinkPage = () => {
   const [copied, setCopied] = useState(false);
-  const baseUrl = "http://localhost:5173"; // Replace 'yourwebsite.com' with your actual website domain
+  const baseUrl = "https://sweta-mishra.netlify.app"; // Replace 'yourwebsite.com' with your actual website domain
   const { quizId } = useParams();
   const sharableLink = quizId ? `${baseUrl}/quiz/${quizId}?click=true` : "";
   const navigate = useNavigate();

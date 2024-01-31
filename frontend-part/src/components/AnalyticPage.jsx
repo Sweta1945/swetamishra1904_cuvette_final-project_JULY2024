@@ -12,7 +12,7 @@ const AnalyticPage = ({ changeContent }) => {
   const [deleteConfirmationVisible, setDeleteConfirmationVisible] =
     useState(false);
   const [quizToDeleteId, setQuizToDeleteId] = useState(null);
-  const baseUrl = "http://localhost:5173";
+  const baseUrl = "https://sweta-mishra.netlify.app";
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false); 
