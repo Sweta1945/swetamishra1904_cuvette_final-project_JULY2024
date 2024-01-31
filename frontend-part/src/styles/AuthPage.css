@@ -1,0 +1,187 @@
+
+
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300&family=Jomhuria&family=Roboto:ital,wght@1,100;1,300&display=swap');
+
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300&family=Jomhuria&family=Poppins:ital,wght@1,300&family=Roboto:wght@1,100;1,300&display=swap');
+
+.authPage {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: #F2F2F2;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.show-selected{
+    width: 87%;
+    height: 79%;
+    background-color: white;
+    border: 1 px white solid;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding-bottom: 20px;
+}
+
+.heading-quizzie{
+    font-family: 'Jomhuria', serif;
+    color: #474444;
+
+
+font-size: 100px;
+font-weight: 400;
+line-height: 100px;
+letter-spacing: 0em;
+text-align: center;
+margin-top: 20px;
+margin-bottom: 0;
+
+}
+
+.toggle-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 417px;
+height: 37px;
+
+border: 1px white solid;
+border-radius: 10px;
+margin-left: 30%;
+gap:50px
+
+}
+
+.signup-toggle, .login-toggle{
+    width: 200px;
+    height: 30px;
+    border: 1px white solid;
+    border-radius: 10px;
+    background-color: white;
+font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+font-size: 18px;
+color: #656060;
+
+}
+.selected {
+    box-shadow: 0px 0px 20px 0px #00000026;
+  }
+
+.label {
+    display: flex;
+   padding-left: 15vw;
+   gap:50px;
+   height: 30px;
+   align-items: center;
+   
+   
+
+
+}
+
+.signup-content {
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    gap:20px;
+}
+
+.signup-headings{
+    
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    direction: rtl;
+    width: 300px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #474444;
+
+
+
+
+
+    
+}
+
+
+
+._input {
+width: 270px;
+height: 27px;
+
+border: 1px #F4F4F4 solid;
+background-color: #F4F4F4;
+
+border-radius: 10px 10px 0px 0px;
+padding-left: 20px;
+font-size: 12px;
+font-weight: 600;
+color: rgb(58, 50, 50);
+
+}
+
+.error-message {
+    color:red;
+}
+.error{
+    border: 1px red solid;
+}
+.signup-submit-button {
+    border: 1px white solid;
+    width: 260px;
+    height: 40px;
+       margin-left: 33vw;
+margin-top: 15px;
+background-color: #A9BCFF;
+color: #474444;
+font-family: 'Poppins', sans-serif;
+text-align: center;
+font-size: 20px;
+font-weight: 600;
+border-radius: 10px;
+
+}
+
+.login-content {
+
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    gap:20px;
+
+
+}
+
+.login-headings {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    direction: rtl;
+    width: 300px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #474444;
+
+
+
+}
+
+.login-submit-button{
+    border: 1px white solid;
+    width: 260px;
+    height: 40px;
+       margin-left: 33vw;
+margin-top: 20px;
+background-color: #A9BCFF;
+color: #474444;
+font-family: 'Poppins', sans-serif;
+text-align: center;
+font-size: 20px;
+font-weight: 600;
+border-radius: 10px;
+
+}

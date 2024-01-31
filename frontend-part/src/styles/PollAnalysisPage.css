@@ -1,0 +1,34 @@
+.analysisPoll {
+  margin-top: 40px;
+  margin-left: 40px;
+  color: #5076ff;
+  text-align: center;
+}
+
+.poll-division {
+  border: 2px black solid;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  margin-left: 70px;
+  margin-top: 70px;
+  gap: 20px;
+}
+
+.div-poll {
+  color: black;
+  font-weight: 700;
+  font-size: 40px;
+}
+
+.option-div {
+  display: flex;
+  width: 60%;
+  background-color: white;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+}
+.para {
+  font-size: 18px;
+}

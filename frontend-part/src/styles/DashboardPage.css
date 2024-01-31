@@ -1,0 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300&family=Jomhuria&family=Poppins:ital,wght@1,300&family=Roboto:wght@1,100;1,300&display=swap");
+
+.dashboardPage {
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.number-displaying-section {
+  width: 80%;
+  height: 150px;
+  margin-top: 10vh;
+  margin-left: 7vw;
+  display: flex;
+
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-created-division,
+.question-created-division,
+.total-impressions-division {
+  width: 30%;
+  height: 130px;
+  background-color: white;
+  border: 1px white solid;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+}
+
+.span-quiz,
+.span-impression {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12%;
+  height: 20px;
+  margin-top: 30px;
+}
+
+.span-question {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+  height: 20px;
+  margin-top: 30px;
+}
+
+.quiz-heading {
+  font-family: "Poppins", sans-serif;
+
+  font-size: 60px;
+  font-weight: 600;
+}
+.question-heading,
+.impression-heading {
+  font-family: "Poppins", sans-serif;
+
+  font-size: 50px;
+  font-weight: 600;
+}
+.quiz-heading {
+  color: #ff5d01;
+}
+
+.question-heading {
+  color: #60b84b;
+}
+
+.impression-heading {
+  color: #5076ff;
+}
+.quiz-quiz,
+.question-question,
+.impression-impression {
+  font-family: "Poppins", sans-serif;
+
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 45px;
+  margin-top: 60px;
+}
+
+.quiz-quiz {
+  color: #ff5d01;
+}
+
+.question-question {
+  color: #60b84b;
+}
+
+.impression-impression {
+  color: #5076ff;
+}
+
+.quiz-created {
+  color: #ff5d01;
+}
+
+.question-created {
+  color: #60b84b;
+}
+
+.impression-created {
+  color: #5076ff;
+}
+.quiz-created,
+.question-created,
+.impression-created {
+  font-family: "Poppins", sans-serif;
+
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 45px;
+
+  display: flex;
+  justify-content: center;
+}
+/* /////////////////////////////////////////////////////////////////////////////////////////////////////// */
+.trending-quiz-heading {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  color: #474444;
+  margin-left: 7vw;
+  margin-top: 6%;
+}
+
+.trendingQuiz-display {
+  margin-left: 5vw;
+  width: 83%;
+  max-height: 250px; /* maximum height */
+  overflow-y: auto; /* to make it scrollable */
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+.quiz-card {
+  border: 1px white solid;
+  background-color: white;
+  width: 28%; /* Adjust the width as needed */
+  height: 90px;
+  margin: 1%;
+  border-radius: 10px;
+}
+
+.quizCard-title {
+  font-family: "Poppins", sans-serif;
+
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 35px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #474444;
+  margin-left: 10px;
+}
+
+.titleAndImpression {
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+  gap: 40px;
+  width: 100%;
+  height: 40px;
+}
+.quizCard-impression {
+  display: flex;
+  width: 40%;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+
+font-size: 18px;
+font-weight: 600;
+line-height: 23px;
+color: #FF5D01;
+
+
+}
+
+.quizCard-date {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-left: 10px;
+  color: #60b84b;
+  
+}

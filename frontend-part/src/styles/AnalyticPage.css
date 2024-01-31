@@ -1,0 +1,143 @@
+
+
+.analyticPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.quiz-analysis-heading{
+         font-family: 'Poppins', sans-serif;
+font-size: 50px;
+font-weight: 600;
+line-height: 75px;
+letter-spacing: 0em;
+color: #5076FF;
+text-align: center;
+
+}
+
+.analysis-div{
+
+    width: 89% ;
+  
+
+   
+
+
+}
+
+
+.analysis-bar{
+    border: 1px #5076FF solid ;
+    width: 97%;
+    height: 40px;
+    background-color: #5076FF;
+    color: white;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap:50px;
+        padding-left: 20px;
+        font-family: 'Poppins', sans-serif;
+
+
+    
+
+}
+
+
+
+
+.row-row{
+    display: flex;
+gap:20px;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+font-weight: 600;
+
+
+margin-bottom: 10px;
+height: 40px;
+padding-left: 20px;
+
+
+}
+
+.analysis-content{
+    height:70vh;
+    overflow-y: auto;
+    
+}
+
+.wid-index, .wid-impression{
+    width: 60px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    
+}
+
+.wid-title, .wid-date{
+    width: 150px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+}
+.even-row {
+    background-color: #EDEDED;
+  }
+  
+  .odd-row {
+    background-color: #B3C4FF;
+  }
+  
+.images{
+    width: 150px;
+    display: flex;
+    justify-content: space-evenly
+}
+.wid-p{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.deleteIt-div{
+    width: 300px;
+    height: 180px;
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+font-size: 39px;
+font-weight: 600;
+line-height: 59px;
+letter-spacing: 0em;
+text-align: center;
+
+
+
+}
+
+.notification{
+    border:2px solid red;
+    background-color: rgb(220, 101, 101);
+    color: white;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 300px;
+    height: 40px;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+
+}
+
