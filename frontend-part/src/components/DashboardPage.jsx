@@ -20,7 +20,7 @@ const DashboardContent = () => {
 
   const fetchTotalQuiz = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/total-quizzes", {
+      const response = await fetch("https://backend-part-3u6u.onrender.com/api/total-quizzes", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const DashboardContent = () => {
   const fetchTotalQuestions = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/api/total-questions",
+        "https://backend-part-3u6u.onrender.com/api/total-questions",
         {
           method: "GET",
           headers: {
@@ -66,7 +66,7 @@ const DashboardContent = () => {
   const fetchTotalImpressions = async () => {
     try {
       const response = await fetch(
-        "http://localhost:4000/api/total-impressions",
+        "https://backend-part-3u6u.onrender.com/api/total-impressions",
         {
           method: "GET",
           headers: {
@@ -92,7 +92,7 @@ const DashboardContent = () => {
       const userId = localStorage.getItem("userId");
 
       const response = await fetch(
-        `http://localhost:4000/api/trending-quizzes/${userId}`,
+        `https://backend-part-3u6u.onrender.com/api/trending-quizzes/${userId}`,
         {
           method: "GET",
           headers: {

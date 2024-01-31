@@ -192,7 +192,7 @@ const CreateQuizContent = ({ changeContent }) => {
 
     // Sending data to the backend
     try {
-      const response = await fetch("http://localhost:4000/api/create-quizzes", {
+      const response = await fetch("https://backend-part-3u6u.onrender.com/api/create-quizzes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -12,7 +12,7 @@ function QuizAnalysisPage({ quizId }) {
   const fetchQuizStats = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/quiz/response/stats/${quizId}`
+        `https://backend-part-3u6u.onrender.com/api/quiz/response/stats/${quizId}`
       );
       if (response.ok) {
         const data = await response.json();

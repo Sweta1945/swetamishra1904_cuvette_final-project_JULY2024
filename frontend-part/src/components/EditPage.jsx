@@ -36,7 +36,7 @@ const EditPage = ({ changeContent }) => {
     const fetchQuizData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/quiz-data/65ba24ac18c50a2aa15a8ae6`
+          `https://backend-part-3u6u.onrender.com/api/quiz-data/65ba24ac18c50a2aa15a8ae6`
         );
         if (response.ok) {
           const data = await response.json();
@@ -172,7 +172,7 @@ const EditPage = ({ changeContent }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/edit-quiz/${quizIdHere}`,
+        `https://backend-part-3u6u.onrender.com/api/edit-quiz/${quizIdHere}`,
         {
           method: "PUT",
           headers: {

@@ -11,7 +11,7 @@ const PollAnalysisPage = ({ quizId }) => {
 
   const fetchPollStats = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/api/poll/response/stats/${quizId}`);
+      const response = await fetch(`https://backend-part-3u6u.onrender.com/api/poll/response/stats/${quizId}`);
       if (response.ok) {
         const data = await response.json();
         setPollDataToStore(data);

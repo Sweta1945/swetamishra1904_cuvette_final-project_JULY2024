@@ -12,7 +12,7 @@ const AnalyticPage = ({ changeContent }) => {
   const [deleteConfirmationVisible, setDeleteConfirmationVisible] =
     useState(false);
   const [quizToDeleteId, setQuizToDeleteId] = useState(null);
-  const baseUrl = "http://localhost:5173";
+  const baseUrl = "https://swetamishra1904-cuvette-final-project-july-2024.vercel.app/";
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false); 
@@ -25,7 +25,7 @@ const AnalyticPage = ({ changeContent }) => {
     try {
       const userId = localStorage.getItem("userId");
       const response = await fetch(
-        `http://localhost:4000/api/trending-quizzes/${userId}`,
+        `https://backend-part-3u6u.onrender.com/api/trending-quizzes/${userId}`,
         {
           method: "GET",
           headers: {
@@ -60,7 +60,7 @@ const AnalyticPage = ({ changeContent }) => {
     if (quizToDeleteId) {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/delete-quiz/${quizToDeleteId}`,
+          `https://backend-part-3u6u.onrender.com/api/delete-quiz/${quizToDeleteId}`,
           {
             method: "DELETE",
             headers: {

@@ -19,7 +19,7 @@ const QuizInfoComponent = () => {
     const fetchQuizInfo = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/api/all-info/${quizId}`
+          `https://backend-part-3u6u.onrender.com/api/all-info/${quizId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch quiz information");
@@ -123,7 +123,7 @@ const QuizInfoComponent = () => {
     console.log("Data to store:", dataToStore); // Log the data for debugging
 
     // Send data to the server
-    fetch("http://localhost:4000/api/submit-response", {
+    fetch("https://backend-part-3u6u.onrender.com/api/submit-response", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
