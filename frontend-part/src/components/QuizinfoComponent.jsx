@@ -202,7 +202,7 @@ const QuizInfoComponent = () => {
     if (quizInfo.quizType === "quiz") {
       return (
         <div className="award-page">
-          <img src={congratsText} alt="Congrats Text" />
+         <p className="congratsText">Congratulation Your <br/> Quiz Is Complete !</p>
           <img src={trophy} alt="Trophy" />
           <span className="scoreIs">
             Your Score Is:

@@ -12,7 +12,7 @@ const AnalyticPage = ({ changeContent }) => {
   const [deleteConfirmationVisible, setDeleteConfirmationVisible] =
     useState(false);
   const [quizToDeleteId, setQuizToDeleteId] = useState(null);
-  const baseUrl = "https://swetamishra1904-cuvette-final-project-july-2024.vercel.app";
+  const baseUrl = "http://localhost:5173";
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false); 
