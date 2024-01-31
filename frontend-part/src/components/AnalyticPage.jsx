@@ -120,7 +120,7 @@ const AnalyticPage = ({ changeContent }) => {
     <div className="analyticPage">
       {copied && <div className="notification">Link copied to clipboard!</div>}
       <h2 className="quiz-analysis-heading">Quiz Analysis</h2>
-      <div className="analysis-div">
+      <div className={`analysis-div ${deleteConfirmationVisible ? "overlay-visible" : ""}`}>
         <div className="analysis-bar">
           <h3>S.No</h3>
           <h3>Quiz Name</h3>
