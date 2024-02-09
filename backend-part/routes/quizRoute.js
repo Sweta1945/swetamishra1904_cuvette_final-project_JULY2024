@@ -336,11 +336,11 @@ router.get('/all-info/:id', async (req, res) => {
       title: quiz.title,
       quizType: quiz.quizType,
       questions: (quiz.questions || []).map((question) => ({
-        id: question._id,  // Assuming question ID is stored in '_id'
+        id: question._id, 
         questionText: question.questionText,
-        options: question.options || [],  // Use actual options if available, otherwise, an empty array
+        options: question.options || [],  
         correctAnswer: question.correctAnswer,
-        timer: question.timer || null,  // Use actual timer if available, otherwise, null
+        timer: question.timer || null, 
       })),
     };
 
@@ -358,10 +358,9 @@ router.get('/trending-quizzes/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    // Query the database to find quizzes with impressions greater than 10 for the given user
     const quizzes = await QuizModel.find({ creator: userId, impressions: { $gte: 10 } })
       .sort({ impressions: -1 }) // Sort in descending order of impressions
-      .select('title impressions _id quizType') // Select title, impressions, and _id fields
+      .select('title impressions _id quizType') 
       .exec();
 
     // Check if any quizzes are found
