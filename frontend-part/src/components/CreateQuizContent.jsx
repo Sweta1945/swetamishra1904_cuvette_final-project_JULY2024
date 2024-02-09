@@ -143,7 +143,7 @@ const CreateQuizContent = ({ changeContent }) => {
     changeContent("dashboard-content");
   };
 
-  const finalSubmit = async () => {
+  const finalSubmitQuiz = async () => {
     if (error) {
       return; // Prevent submission if there is an error
     }
@@ -736,7 +736,7 @@ const CreateQuizContent = ({ changeContent }) => {
               Cancel
             </button>
             <button
-              onClick={() => finalSubmit()}
+              onClick={() => finalSubmitQuiz()}
               className={`continue_button ${
                 selectProceedButton === "continue"
                   ? "selectedProceed-continue"

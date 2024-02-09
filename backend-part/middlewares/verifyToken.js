@@ -62,7 +62,7 @@ const authenticate = async (req, res, next) => {
         console.log(decoded);
 
     // Find the user based on the decoded token info (e.g., user ID)
-    const user = await User.findById(decoded._id);
+    const user = await User.findById(decoded.userId);
 
     // Attach the user to the request object for further use
     req.user = user;

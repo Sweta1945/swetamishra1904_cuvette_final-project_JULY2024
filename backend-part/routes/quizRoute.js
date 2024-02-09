@@ -7,13 +7,17 @@ const authorizationCheck = require('../middlewares/verifyToken.js')
 const AnswerModel = require('../models/answerModel.js');
 const  Response  = require('../models/responseModel.js');
 
-
 // Correctly defining the route
 router.post('/create-quizzes', authorizationCheck, async (req, res) => {
   try {
-    console.log('Creator ID:', req.user._id);
+    // Check if req.user exists and has _id property
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    console.log('Creator ID:', req.user.id);
     const { title, quizType, questions, pollOptions } = req.body;
-    const creator = req.user._id;
+    const creator = req.user.id;
 
     let quizData;
 
@@ -33,8 +37,6 @@ router.post('/create-quizzes', authorizationCheck, async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
 
 
 

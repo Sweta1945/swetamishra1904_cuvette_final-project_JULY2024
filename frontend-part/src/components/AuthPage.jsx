@@ -166,7 +166,7 @@ const AuthComponent = () => {
         console.log("JWT Token:", data.jwttoken);
 
         // Store the JWT token in local storage
-        localStorage.setItem("userId", data.user.id);
+        localStorage.setItem("userId", data.id);
 
         localStorage.setItem("jwtToken", data.jwttoken);
 
