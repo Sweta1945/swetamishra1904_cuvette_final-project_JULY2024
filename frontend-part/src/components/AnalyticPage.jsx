@@ -122,7 +122,7 @@ const AnalyticPage = ({ changeContent }) => {
   return (
     <div className="analyticPage">
       {loading && ( // Showing loading spinner if loading is true
-        <div className="loading-spinner">
+        <div className="loading-spinner" style={{marginTop:"20px"}}>
           <img src={loadingSpinner} alt="Loading..." />
         </div>
       )}
