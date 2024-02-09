@@ -26,7 +26,7 @@ const AnalyticPage = ({ changeContent }) => {
     try {
       const userId = localStorage.getItem("userId");
       const response = await fetch(
-        `https://backend-part-3u6u.onrender.com/api/trending-quizzes/${userId}`,
+        `https://backend-part-3u6u.onrender.com/api/trending-quizzes-opp/${userId}`,
         {
           method: "GET",
           headers: {
@@ -37,7 +37,6 @@ const AnalyticPage = ({ changeContent }) => {
 
       if (response.ok) {
         const data = await response.json();
-        data.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
         setTrendingQuizzes(data);
       } else {
         console.error("Failed to fetch trending quizzes");

@@ -386,6 +386,37 @@ router.get('/trending-quizzes/:userId', async (req, res) => {
   }
 });
 
+router.get('/trending-quizzes-opp/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Query the database to find quizzes sorted by created date for the given user
+    const quizzes = await QuizModel.find({ creator: userId })
+      .sort({ createdAt: -1 }) // Sort in descending order of created date
+      .select('title impressions _id quizType createdAt') // Select title, impressions, _id, quizType, and createdAt fields
+      .exec();
+
+    // Check if any quizzes are found
+    if (!quizzes || quizzes.length === 0) {
+      return res.status(404).json({ message: 'No quizzes found for the user.' });
+    }
+
+    // Format the createdAt timestamp for each quiz
+    const formattedQuizzes = quizzes.map((quiz) => ({
+      id: quiz._id,
+      quizType: quiz.quizType,
+      title: quiz.title,
+      impressions: quiz.impressions,
+      createdDate: formatDate(quiz.createdAt)
+    }));
+
+    // Return the sorted list of quizzes
+    res.status(200).json(formattedQuizzes);
+  } catch (error) {
+    console.error('Error fetching quizzes:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 // Helper function to format date in "4 Sept, 2023" format
