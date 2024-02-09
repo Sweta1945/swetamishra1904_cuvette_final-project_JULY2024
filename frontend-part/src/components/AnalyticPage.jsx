@@ -26,7 +26,7 @@ const AnalyticPage = ({ changeContent }) => {
     try {
       const userId = localStorage.getItem("userId");
       const response = await fetch(
-        `https://backend-part-3u6u.onrender.com/api/trending-quizzes-opp/${userId}`,
+        `http://localhost:4000/api/trending-quizzes-opp/${userId}`,
         {
           method: "GET",
           headers: {

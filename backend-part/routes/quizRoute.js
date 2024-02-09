@@ -358,42 +358,42 @@ router.get('/trending-quizzes/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    // Query the database to find quizzes sorted by impressions for the given user
-    const quizzes = await QuizModel.find({ creator: userId })
+    // Query the database to find quizzes with impressions greater than 10 for the given user
+    const quizzes = await QuizModel.find({ creator: userId, impressions: { $gte: 10 } })
       .sort({ impressions: -1 }) // Sort in descending order of impressions
       .select('title impressions _id quizType') // Select title, impressions, and _id fields
       .exec();
 
     // Check if any quizzes are found
     if (!quizzes || quizzes.length === 0) {
-      return res.status(404).json({ message: 'No quizzes found for the user.' });
+      return res.status(404).json({ message: 'No quizzes found for the user with impressions greater than 10.' });
     }
 
     // Format the createdAt timestamp for each quiz
     const formattedQuizzes = quizzes.map((quiz) => ({
-      id:quiz._id,
-      quizType:quiz.quizType,
+      id: quiz._id,
+      quizType: quiz.quizType,
       title: quiz.title,
       impressions: quiz.impressions,
       createdDate: formatDate(quiz._id.getTimestamp())
     }));
 
     // Return the sorted list of quizzes
-    res.status(201).json(formattedQuizzes);
+    res.status(200).json(formattedQuizzes);
   } catch (error) {
     console.error('Error fetching quizzes:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
 
+
 router.get('/trending-quizzes-opp/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    // Query the database to find quizzes sorted by created date for the given user
     const quizzes = await QuizModel.find({ creator: userId })
-      .sort({ createdAt: -1 }) // Sort in descending order of created date
-      .select('title impressions _id quizType createdAt') // Select title, impressions, _id, quizType, and createdAt fields
+      .sort({ createdAt: 1 }) // Sort in ascending order of created date
+      .select('title impressions _id quizType createdAt') 
       .exec();
 
     // Check if any quizzes are found
