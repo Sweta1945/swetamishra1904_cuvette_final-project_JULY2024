@@ -138,13 +138,13 @@ text-align: center;
 
 .notification{
     border:2px solid red;
-    background-color: rgb(220, 101, 101);
+    background-color: rgb(179, 30, 30);
     color: white;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-top: 30px;
-    width: 300px;
-    height: 40px;
-    font-size: 20px;
+    width:250px;
+    height: 24px;
+    font-size: 16px;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     text-align: center;

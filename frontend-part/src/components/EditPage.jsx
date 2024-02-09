@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import FinalLinkPage from "./FinalLinkPage";
 import { useNavigate } from "react-router-dom";
 
+
 const EditPage = ({ changeContent, quizId }) => {
   const [inputpart, setInputPart] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const [contenthere, setContenthere] = useState("createQuiz-content");
   const [questions, setQuestions] = useState([
     {
@@ -151,9 +154,14 @@ const EditPage = ({ changeContent, quizId }) => {
   };
 
   const finalSubmit = async () => {
+    setIsLoading(true);
+  
     if (error) {
+      setIsLoading(false); // Reset loading state if there's an error
+      window.alert("attempt failed! retry")
       return; // Prevent submission if there is an error
     }
+   
     // Check if the title and quiz type are provided
     if (!title.trim()) {
       setError("Please provide a title for your quiz.");
@@ -179,6 +187,7 @@ const EditPage = ({ changeContent, quizId }) => {
             optionContent,
           })
         ),
+        
     };
   
     console.log("Quiz Data to Store:", quizDataToStore); // Check quizDataToStore before submission
@@ -197,13 +206,16 @@ const EditPage = ({ changeContent, quizId }) => {
       if (!response.ok) {
         throw new Error("Failed to update quiz");
       }
+
       const data = await response.json();
       console.log("Updated quiz data:", data);
-      window.alert('Quiz updated successfully!');
 
-  
+              window.alert('Quiz updated successfully!');
+              changeContent('analytic-content')
+
       // Optionally, you can perform additional actions after the quiz is successfully updated,
       // such as displaying a success message or navigating to another page.
+      setIsLoading(false);
   
     } catch (error) {
       console.error("Error updating quiz:", error.message);
@@ -733,7 +745,7 @@ const EditPage = ({ changeContent, quizId }) => {
                   : "continue_button"
               }`}
             >
-             Update
+            {isLoading ? 'Updating...' : 'Update'}
             </button>
           </div>
         </div>

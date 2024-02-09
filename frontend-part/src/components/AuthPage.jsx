@@ -135,9 +135,13 @@ const AuthComponent = () => {
         navigate("/homepage");
       } else {
         console.error("Registration failed:", data.message);
+        window.alert(`Registration failed: ${data.message}`);
+
       }
     } catch (error) {
       console.error("Error during registration:", error);
+      window.alert("Error during registration");
+
     } finally {
       setIsLoading(false);
     }
@@ -176,6 +180,8 @@ const AuthComponent = () => {
       }
     } catch (error) {
       console.error("Error during login:", error);
+      window.alert("Error during login");
+
       setIsLoading(false);
     }
   };
