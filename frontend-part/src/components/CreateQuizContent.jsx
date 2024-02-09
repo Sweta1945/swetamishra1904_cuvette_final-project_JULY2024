@@ -20,7 +20,7 @@ const CreateQuizContent = ({ changeContent }) => {
   const changeContenthere = (newContent) => {
     setContenthere(newContent);
   };
-  const [selectedQuizType, setSelectedQuizType] = useState("");
+  const [selectedQuizType, setSelectedQuizType] = useState("quiz");
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
   const [optionContent, setOptionContent] = useState("text-option");

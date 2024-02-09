@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
-import "../styles/PollAnalysisPage.css"
+import "../styles/QuestionWiseAnalysis.css";
+
 const PollAnalysisPage = ({ quizId }) => {
   console.log("Received quizId:", quizId);
 
   const [pollDataToStore, setPollDataToStore] = useState(null);
+  const [createdAt, setCreatedAt] = useState(null);
+  const [quizTitle, setQuizTitle] = useState(""); 
+  const [impressions, setImpressions] = useState(0); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchPollStats();
-  }, [quizId]); // Make sure to include quizId in the dependency array
+    fetchQuizDetails(); 
+  }, []); // Make sure to include quizId in the dependency array
 
   const fetchPollStats = async () => {
     try {
-      const response = await fetch(`https://backend-part-3u6u.onrender.com/api/poll/response/stats/${quizId}`);
+      const response = await fetch(`http://localhost:4000/api/poll/response/stats/${quizId}`);
       if (response.ok) {
         const data = await response.json();
         setPollDataToStore(data);
@@ -23,17 +29,66 @@ const PollAnalysisPage = ({ quizId }) => {
     }
   };
 
+  const fetchQuizDetails = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/quiz-data/${quizId}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Quiz details:", data);
+        setQuizTitle(data.title); 
+        setCreatedAt(data.createdAt); 
+        setImpressions(data.impressions || 0); 
+      } else {
+        console.error("Failed to fetch quiz details");
+      }
+    } catch (error) {
+      console.error("Error fetching quiz details:", error);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const options = { day: 'numeric', month: 'short', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
+
   return (
-    <div>
-      <h1 className="analysisPoll">Poll Analysis Page</h1>
-      {pollDataToStore && (
-        <div className="poll-division">
-         <span className="option-div"> <p className="div-poll"> {pollDataToStore.option1}</p><p className="para">option1</p> </span>
-         <span className="option-div"> <p className="div-poll"> {pollDataToStore.option2}</p><p className="para">option2</p> </span>
-         <span className="option-div"> <p className="div-poll"> {pollDataToStore.option3}</p><p className="para">option3</p> </span>
-        <span className="option-div"> <p className="div-poll"> {pollDataToStore.option4}</p><p className="para">option4</p> </span> 
+    <div className="Container-Main">
+      <div className="header">
+        <h1>{quizTitle} Analysis</h1>
+        <div className="para">
+          <p className="created-date">Created on: {createdAt ? formatDate(createdAt) : "Loading..."}</p>
+          <p>Impressions: {impressions}</p> 
         </div>
-      )}
+      </div>
+      <div className="questions">
+        {pollDataToStore && Object.entries(pollDataToStore).map(([questionName, stats]) => (
+          <div key={questionName}>
+            <h2>{`Q. ${questionName}`}</h2>
+            <div className="question-numbers">
+              <div className="box-poll">
+                <span>{stats.options.option1}</span>
+                <p> Option 1</p>
+              </div>
+              <div className="box-poll">
+                <span>{stats.options.option2}</span>
+                <p> Option 2</p>
+              </div>
+              <div className="box-poll">
+                <span>{stats.options.option3}</span>
+                <p> Option 3</p>
+              </div>
+              <div className="box-poll">
+                <span>{stats.options.option4}</span>
+                <p> Option 4</p>
+              </div>
+            </div>
+            <br></br>
+            <hr className="borders"></hr>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

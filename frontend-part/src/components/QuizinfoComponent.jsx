@@ -85,61 +85,77 @@ const QuizInfoComponent = () => {
     setSelectedOptions(newSelectedOptions);
   };
 
-  const handleSubmit = () => {
-    // Initialize an array to store data for all questions
-    const questionsData = [];
-
-    // Loop through all questions and prepare data for each question
-    quizInfo.questions.forEach((question, index) => {
-      const correctAnswerIndex = parseInt(question.correctAnswer);
-      const selectedOptionIndex = parseInt(selectedOptions[index]);
-      const isCorrect = selectedOptionIndex === correctAnswerIndex;
-
-      // Increment score if the selected option is correct
-      if (isCorrect) {
-        setScore((prevScore) => prevScore + 1); // Increment score by 1 if correct
+  const handleSubmit = async () => {
+    try {
+      for (let i = 0; i < quizInfo.questions.length; i++) {
+        const question = quizInfo.questions[i];
+        const selectedOptionIndex = parseInt(selectedOptions[i]);
+  
+        if (quizInfo.quizType === "quiz") {
+          // For quiz, store data for each question individually
+          const correctAnswerIndex = parseInt(question.correctAnswer);
+          const isCorrect = selectedOptionIndex === correctAnswerIndex;
+  
+          const questionData = {
+            questionName: question.questionText,
+            selectedOption: selectedOptionIndex,
+            isCorrect: isCorrect,
+          };
+  
+          const dataToStore = {
+            userId: localStorage.getItem("userId"),
+            quizId: quizId,
+            quizTitle: quizInfo.title,
+            questions: [questionData], // Send data for the current question only
+          };
+  
+          // Send data for the current question to the server
+          const response = await fetch("https://backend-part-3u6u.onrender.com/api/submit-response", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataToStore),
+          });
+  
+          if (!response.ok) {
+            throw new Error("Failed to submit response for question: " + question.questionText);
+          }
+        } else if (quizInfo.quizType === "poll") {
+          // For poll, store the count of selected options for each question
+          const questionName = question.questionText;
+  
+          const dataToStore = {
+            userId: localStorage.getItem("userId"),
+            quizId: quizId,
+            quizTitle: quizInfo.title,
+            questionName: questionName,
+            selectedOption: selectedOptionIndex, // Store the selected option index
+          };
+  
+          // Send data for the current question to the server
+          const response = await fetch("https://backend-part-3u6u.onrender.com/api/submit-response", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(dataToStore),
+          });
+  
+          if (!response.ok) {
+            throw new Error("Failed to submit response for question: " + question.questionText);
+          }
+        }
       }
-
-      // Prepare data for the current question
-      const questionData = {
-        questionName: question.questionText,
-        selectedOption: selectedOptionIndex,
-        isCorrect: isCorrect,
-      };
-
-      // Add the current question's data to the array
-      questionsData.push(questionData);
-    });
-
-    // Prepare the complete data to store in MongoDB
-    const dataToStore = {
-      userId: localStorage.getItem("userId"), // Get user ID from local storage
-      quizId: quizId,
-      quizTitle: quizInfo.title,
-      questions: questionsData, // Include data for all questions
-      score: score, // Include updated score
-    };
-
-    console.log("Data to store:", dataToStore); // Log the data for debugging
-
-    // Send data to the server
-    fetch("https://backend-part-3u6u.onrender.com/api/submit-response", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataToStore),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Response stored successfully:", data);
-        setSubmitted(true);
-      })
-      .catch((error) => {
-        console.error("Error storing response:", error);
-      });
+  
+      // If all responses are submitted successfully
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Error storing response:", error);
+      // Handle error appropriately, e.g., show error message to the user
+    }
   };
-
+  
   const handleNextQuestion = () => {
     // Move to the next question
     if (currentQuestionIndex === quizInfo.questions.length - 1) {

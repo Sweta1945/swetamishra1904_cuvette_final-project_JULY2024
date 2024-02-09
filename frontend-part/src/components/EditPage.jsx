@@ -54,7 +54,6 @@ const EditPage = ({ changeContent, quizId }) => {
         setTitle(data.title);
         setSelectedQuizType(data.quizType);
         setQuestions(data.questions);
-        // Preserve the initial state of optionContent if not provided in fetched data
         setOptionContent(data.questions[0]?.optionContent || "text-option");
   
         // Log the fetched quiz data
@@ -68,7 +67,6 @@ const EditPage = ({ changeContent, quizId }) => {
       fetchQuizData(); // Fetch quiz data when the component mounts
     }
   
-    // Ensure "text-option" is pre-selected when the component mounts
     setOptionContent("text-option");
   }, [quizId]);
   
@@ -213,8 +211,6 @@ const EditPage = ({ changeContent, quizId }) => {
               window.alert('Quiz updated successfully!');
               changeContent('analytic-content')
 
-      // Optionally, you can perform additional actions after the quiz is successfully updated,
-      // such as displaying a success message or navigating to another page.
       setIsLoading(false);
   
     } catch (error) {
@@ -362,7 +358,7 @@ const EditPage = ({ changeContent, quizId }) => {
       <input
   type="radio"
   value="text-option"
-  checked={question.optionContent === "text-option" } // Add this condition
+  checked={question.optionContent === "text-option" } 
   onChange={() => changeOptionContent("text-option", index)}
 />
 
@@ -529,7 +525,7 @@ const EditPage = ({ changeContent, quizId }) => {
             value={option}
             checked={
               question.correctAnswer === (optionIndex + 2).toString()
-            } // Check if the correct answer matches the option index
+            } 
             onChange={() => handleRadioChange(index, optionIndex + 2)}
             style={{
               display: selectedQuizType !== "poll" ? "inline-block" : "none",

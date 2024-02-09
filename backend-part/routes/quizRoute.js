@@ -498,37 +498,54 @@ router.post('/submit-response', async (req, res) => {
 
 
 // GET request to retrieve total responses, correct responses, and incorrect responses for a specific quiz ID
+// GET request to retrieve total responses, correct responses, and incorrect responses for each question in a specific quiz
 router.get('/quiz/response/stats/:quizId', async (req, res) => {
   try {
-      const quizId = req.params.quizId;
+    const quizId = req.params.quizId;
 
-      // Find all responses for the given quiz ID
-      const responses = await Response.find({ quizId });
+    // Find all responses for the given quiz ID
+    const responses = await Response.find({ quizId });
 
-      // Initialize counters for total, correct, and incorrect responses
-      let totalResponses = responses.length;
-      let totalCorrect = 0;
-      let totalIncorrect = 0;
+    // Initialize an object to store counts for each question
+    const questionStats = {};
 
-      // Iterate through each response
-      for (const response of responses) {
-          // Iterate through each question in the response
-          for (const questionResponse of response.questions) {
-              // If the question's answer is correct, increment totalCorrect
-              if (questionResponse.isCorrect) {
-                  totalCorrect++;
-              } else {
-                  // If the question's answer is incorrect, increment totalIncorrect
-                  totalIncorrect++;
-              }
-          }
+    // Iterate through each response
+    for (const response of responses) {
+      // Iterate through each question in the response
+      for (const questionResponse of response.questions) {
+        const questionId = questionResponse.name;
+        const questionTitle = questionResponse.title;
+
+        // Initialize the question's stats if not already present
+        if (!questionStats[questionId]) {
+          questionStats[questionId] = {
+            title: questionTitle,
+            totalAttempts: 0,
+            totalCorrect: 0,
+            totalIncorrect: 0
+          };
+        }
+
+        // Increment totalAttempts for the question
+        questionStats[questionId].totalAttempts++;
+
+        // If the question's answer is correct, increment totalCorrect
+        if (questionResponse.isCorrect) {
+          questionStats[questionId].totalCorrect++;
+        } else {
+          // If the question's answer is incorrect, increment totalIncorrect
+          questionStats[questionId].totalIncorrect++;
+        }
       }
+    }
 
-      res.status(200).json({ totalResponses, totalCorrect, totalIncorrect });
+    // Send the questionStats object in the response
+    res.status(200).json(questionStats);
   } catch (error) {
-      res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 });
+
 
 // {
 //   "totalResponses": 2,
@@ -543,33 +560,35 @@ router.get('/poll/response/stats/:quizId', async (req, res) => {
     const responseStats = await Response.aggregate([
       { $match: { quizId: quizId } }, // Match based on quizId only
       { $unwind: "$questions" },
-      { $group: { _id: "$questions.selectedOption", count: { $sum: 1 } } }
+      { 
+        $group: { 
+          _id: { 
+            questionName: "$questions.name", 
+            selectedOption: "$questions.selectedOption" 
+          }, 
+          count: { $sum: 1 } 
+        } 
+      }
     ]);
 
-    const stats = {
-      option1: 0,
-      option2: 0,
-      option3: 0,
-      option4: 0
-    };
+    // Initialize stats object to hold detailed statistics
+    const stats = {};
 
+    // Iterate through responseStats and update stats object
     responseStats.forEach(stat => {
-      switch (stat._id) {
-        case 1:
-          stats.option1 = stat.count;
-          break;
-        case 2:
-          stats.option2 = stat.count;
-          break;
-        case 3:
-          stats.option3 = stat.count;
-          break;
-        case 4:
-          stats.option4 = stat.count;
-          break;
-        default:
-          break;
+      const { _id, count } = stat;
+      const { questionName, selectedOption } = _id;
+      if (!stats[questionName]) {
+        stats[questionName] = {
+          options: {
+            option1: 0,
+            option2: 0,
+            option3: 0,
+            option4: 0
+          }
+        };
       }
+      stats[questionName].options[`option${selectedOption + 1}`] = count;
     });
 
     res.json(stats);

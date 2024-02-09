@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/AuthPage.css";
 
-const apiUrl = "https://backend-part-3u6u.onrender.com/api";
+const apiUrl = "http://localhost:4000/api";
 const AuthComponent = () => {
   const navigate = useNavigate();
 
@@ -166,7 +166,7 @@ const AuthComponent = () => {
         console.log("JWT Token:", data.jwttoken);
 
         // Store the JWT token in local storage
-        localStorage.setItem("userId", data.id);
+        localStorage.setItem("userId", data.user.id);
 
         localStorage.setItem("jwtToken", data.jwttoken);
 

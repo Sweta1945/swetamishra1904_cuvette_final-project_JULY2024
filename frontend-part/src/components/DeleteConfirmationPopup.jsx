@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/DeleteConfirmationPopup.css";
 
 const DeleteConfirmationPopup = ({ quizId, onCancel, onDelete }) => {
-  const handleDelete = () => {
-    onDelete(quizId);
+  const [deleting, setDeleting] = useState(false); // State to manage deletion process
+
+  const handleDelete = async () => {
+    setDeleting(true); // Set deleting to true when deletion process starts
+    await onDelete(quizId); // Wait for the deletion process to complete
+    setDeleting(false); // Set deleting to false when deletion process finishes
   };
 
   return (
@@ -11,8 +15,12 @@ const DeleteConfirmationPopup = ({ quizId, onCancel, onDelete }) => {
       <div className="delete-confirmation-content">
         <h1>Are you sure you want to delete?</h1>
         <div className="buttons">
-          <button className="onDelete" onClick={handleDelete}>Delete</button>
-          <button className="onClick" onClick={onCancel}>Cancel</button>
+          <button className="onDelete" onClick={handleDelete}>
+            {deleting ? "Deleting..." : "Delete"}
+          </button>
+          <button className="onClick" onClick={onCancel}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>

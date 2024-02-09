@@ -25,13 +25,13 @@ const registerRoute = router.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
-    console.log("New user ID:", newUser._id); // Log the user ID
+    console.log("New user ID:", newUser.id); // Log the user ID
 
 
-    const payload = { userId: newUser._id };
+    const payload = { userId: newUser.id };
     const jwttoken = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '12h' });
 
-    res.status(201).json({ message: 'User created successfully', jwttoken, id: newUser._id });
+    res.status(201).json({ message: 'User created successfully', jwttoken, id: newUser.id });
   } catch (error) {
     console.error('Error during signup:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -53,14 +53,14 @@ const loginRoute = router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Incorrect email or password' });
     }
 
-    const payload = { userId: user._id };
+    const payload = { userId: user.id };
     const jwttoken = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '12h' });
 
     res.json({
       status: 'success',
       message: 'Login successful',
       jwttoken,
-      user: { name: user.name, id: user._id }
+      user: { name: user.name, id: user.id }
     });
   } catch (error) {
     console.error('Error during login:', error);

@@ -6,16 +6,17 @@ import DeleteConfirmationPopup from "./DeleteConfirmationPopup";
 import edit from "../assets/edit.png";
 import share from "../assets/share.png";
 import "../styles/AnalyticPage.css";
+import loadingSpinner from "../assets/loading-spinner.gif"; // Import loading spinner image
 
 const AnalyticPage = ({ changeContent }) => {
   const [trendingQuizzes, setTrendingQuizzes] = useState([]);
-  const [deleteConfirmationVisible, setDeleteConfirmationVisible] =
-    useState(false);
+  const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
   const [quizToDeleteId, setQuizToDeleteId] = useState(null);
   const baseUrl = "https://sweta-mishra.netlify.app";
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false); 
+  const [loading, setLoading] = useState(true); // State to manage loading spinner visibility
 
   useEffect(() => {
     fetchTrendingQuizzes();
@@ -43,6 +44,8 @@ const AnalyticPage = ({ changeContent }) => {
       }
     } catch (error) {
       console.error("Error fetching trending quizzes:", error);
+    } finally {
+      setLoading(false); // Set loading to false when fetching is done
     }
   };
 
@@ -118,56 +121,66 @@ const AnalyticPage = ({ changeContent }) => {
 
   return (
     <div className="analyticPage">
-      {copied && <div className="notification">Link copied to clipboard!</div>}
-      <h2 className="quiz-analysis-heading">Quiz Analysis</h2>
-      <div className={`analysis-div ${deleteConfirmationVisible ? "overlay-visible" : ""}`}>
-        <div className="analysis-bar">
-          <h3>S.No</h3>
-          <h3>Quiz Name</h3>
-          <h3>Created on</h3>
-          <h3>Impression</h3>
+      {loading && ( // Showing loading spinner if loading is true
+        <div className="loading-spinner">
+          <img src={loadingSpinner} alt="Loading..." />
         </div>
-        <div className="analysis-content">
-          {trendingQuizzes.map((quiz, index) => (
-            <div
-              key={quiz.id}
-              className={`analysis-row ${
-                index % 2 === 0 ? "even-row" : "odd-row"
-              }`}
-            >
-              <div className="row-row">
-                <span className="wid-index">{index + 1}</span>
-                <span className="wid-title">{quiz.title}</span>
-                <span className="wid-date">{quiz.createdDate}</span>
-                <span className="wid-impression">{quiz.impressions}</span>
-                <div className="images">
-                  <img
-                    src={bin}
-                    onClick={() => handleDeleteConfirmation(quiz.id)}
-                    alt="Delete"
-                  />
-                  <img
-                    src={share}
-                    onClick={() =>
-                      copyToClipboard(generateSharableLink(quiz.id))
-                    }
-                    alt="Share"
-                  />
-                  <img src={edit} onClick={() => handleEdit(quiz.id)} />
-                </div>
+      )}
 
-                <p
-                  className="wid-p"
-                  onClick={() => handleText(quiz.id, quiz.quizType)}
-                >
-                  Question Wise Analysis
-                </p>
-              </div>
+      {!loading && (
+        <>
+          {copied && <div className="notification">Link copied to clipboard!</div>}
+          <h2 className="quiz-analysis-heading">Quiz Analysis</h2>
+          <div className={`analysis-div ${deleteConfirmationVisible ? "overlay-visible" : ""}`}>
+            <div className="analysis-bar">
+              <h3>S.No</h3>
+              <h3>Quiz Name</h3>
+              <h3>Created on</h3>
+              <h3>Impression</h3>
             </div>
-          ))}
-        </div>
-      </div>
-
+            <div className="analysis-content">
+              {trendingQuizzes.map((quiz, index) => (
+                <div
+                  key={quiz.id}
+                  className={`analysis-row ${
+                    index % 2 === 0 ? "even-row" : "odd-row"
+                  }`}
+                >
+                  <div className="row-row">
+                    <span className="wid-index">{index + 1}</span>
+                    <span className="wid-title">{quiz.title}</span>
+                    <span className="wid-date">{quiz.createdDate}</span>
+                    <span className="wid-impression">{quiz.impressions}</span>
+                    <div className="images">
+                      <img
+                        src={bin}
+                        onClick={() => handleDeleteConfirmation(quiz.id)}
+                        alt="Delete"
+                      />
+                      <img
+                        src={share}
+                        onClick={() =>
+                          copyToClipboard(generateSharableLink(quiz.id))
+                        }
+                        alt="Share"
+                      />
+                      <img src={edit} onClick={() => handleEdit(quiz.id)} />
+                    </div>
+  
+                    <p
+                      className="wid-p"
+                      onClick={() => handleText(quiz.id, quiz.quizType)}
+                    >
+                      Question Wise Analysis
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+  
       {/* Conditionally render the DeleteConfirmationPopup component */}
       {deleteConfirmationVisible && (
         <DeleteConfirmationPopup

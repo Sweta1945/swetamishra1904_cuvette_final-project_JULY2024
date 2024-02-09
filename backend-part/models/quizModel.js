@@ -41,6 +41,7 @@ const quizSchema = new mongoose.Schema({
 
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'UserModel', required: true },
   impressions: { type: Number, default: 0 },
+  createdAt: { type: Date, default: Date.now }
 });
 
 
