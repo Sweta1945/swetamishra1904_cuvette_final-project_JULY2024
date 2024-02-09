@@ -415,6 +415,8 @@ router.delete('/delete-quiz/:quizId', async (req, res) => {
     res.status(500).json({ message: 'Internal server error.' });
   }
 });// PUT route to edit a quiz by ID
+
+
 router.put('/edit-quiz/:quizId', async (req, res) => {
   const quizId = req.params.quizId;
   const { title, quizType, questions } = req.body;
