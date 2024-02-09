@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import "../styles/DeleteConfirmationPopup.css";
 
 const DeleteConfirmationPopup = ({ quizId, onCancel, onDelete }) => {
-  const [deleting, setDeleting] = useState(false); // State to manage deletion process
+  const [deleting, setDeleting] = useState(false); 
 
   const handleDelete = async () => {
-    setDeleting(true); // Set deleting to true when deletion process starts
-    await onDelete(quizId); // Wait for the deletion process to complete
-    setDeleting(false); // Set deleting to false when deletion process finishes
+    setDeleting(true); 
+    await onDelete(quizId); 
+    setDeleting(false); 
   };
 
   return (

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/AuthPage.css";
 
-const apiUrl = "http://localhost:4000/api";
+const apiUrl = "https://backend-part-3u6u.onrender.com/api";
 const AuthComponent = () => {
   const navigate = useNavigate();
 

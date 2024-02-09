@@ -92,7 +92,7 @@ const DashboardContent = () => {
       const userId = localStorage.getItem("userId");
 
       const response = await fetch(
-        `http://localhost:4000/api/trending-quizzes/${userId}`,
+        `https://backend-part-3u6u.onrender.com/api/trending-quizzes/${userId}`,
         {
           method: "GET",
           headers: {
