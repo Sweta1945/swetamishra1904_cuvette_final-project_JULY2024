@@ -119,13 +119,15 @@ const AuthComponent = () => {
       });
 
       const { data } = response;
+      console.log(response);
+      console.log(data);
 
       if (response.status === 201) {
         console.log("User registered successfully");
         console.log("JWT Token:", data.jwttoken);
 
         // Store the JWT token in local storage
-        localStorage.setItem("userId", data.user.id);
+        localStorage.setItem("userId", data.id);
 
         localStorage.setItem("jwtToken", data.jwttoken);
 
@@ -135,13 +137,11 @@ const AuthComponent = () => {
         navigate("/homepage");
       } else {
         console.error("Registration failed:", data.message);
-        window.alert(`Registration failed: ${data.message}`);
-
+        window.alert('Registration failed', data.message)
       }
     } catch (error) {
       console.error("Error during registration:", error);
-      window.alert("Error during registration");
-
+      window.alert("Error during registration", error)
     } finally {
       setIsLoading(false);
     }
@@ -176,12 +176,12 @@ const AuthComponent = () => {
         navigate("/homepage");
       } else {
         console.error("Login failed:", data.message);
+        window.alert('Login failed!', data.message )
         setIsLoading(false);
       }
     } catch (error) {
       console.error("Error during login:", error);
-      window.alert("Error during login");
-
+      window.alert(error)
       setIsLoading(false);
     }
   };

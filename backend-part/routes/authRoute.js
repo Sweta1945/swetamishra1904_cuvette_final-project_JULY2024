@@ -8,39 +8,32 @@ require('dotenv').config();
 
 
 
-
 // Signup route
 const registerRoute = router.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-  
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
-   
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ error: 'User already exists' });
     }
 
-   
     const hashedPassword = await bcrypt.hash(password, 10);
-
-  
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
+    console.log("New user ID:", newUser._id); // Log the user ID
 
 
     const payload = { userId: newUser._id };
     const jwttoken = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '12h' });
 
-    
-    res.status(201).json({ message: 'User created successfully', jwttoken });
+    res.status(201).json({ message: 'User created successfully', jwttoken, id: newUser._id });
   } catch (error) {
     console.error('Error during signup:', error);
-    
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -61,7 +54,7 @@ const loginRoute = router.post('/login', async (req, res) => {
     }
 
     const payload = { userId: user._id };
-    const jwttoken = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '2h' });
+    const jwttoken = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '12h' });
 
     res.json({
       status: 'success',
