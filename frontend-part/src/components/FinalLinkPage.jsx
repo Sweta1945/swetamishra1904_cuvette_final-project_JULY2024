@@ -28,6 +28,7 @@ const FinalLinkPage = () => {
     <div className="quiz-published-container">
       {quizId && (
         <div>
+          <h1 className="cross" onClick={onClose}>X</h1>
           <div className="congrats-message">
             <h2 className="cong">Congratulations! Your quiz is published.</h2>
           </div>

@@ -7,6 +7,8 @@ import edit from "../assets/edit.png";
 import share from "../assets/share.png";
 import "../styles/AnalyticPage.css";
 import loadingSpinner from "../assets/loading-spinner.gif"; // Import loading spinner image
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AnalyticPage = ({ changeContent }) => {
   const [trendingQuizzes, setTrendingQuizzes] = useState([]);
@@ -101,6 +103,15 @@ const AnalyticPage = ({ changeContent }) => {
     navigator.clipboard
       .writeText(link)
       .then(() => {
+        toast.success("Link copied to clipboard!", {
+          position: "top-right",
+          autoClose: 3000, // Close the toast after 3 seconds
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         // Link copied successfully, show notification
         setCopied(true);
         // Hide notification after 3 seconds
@@ -128,7 +139,6 @@ const AnalyticPage = ({ changeContent }) => {
 
       {!loading && (
         <>
-          {copied && <div className="notification">Link copied to clipboard!</div>}
           <h2 className="quiz-analysis-heading">Quiz Analysis</h2>
           <div className={`analysis-div ${deleteConfirmationVisible ? "overlay-visible" : ""}`}>
             <div className="analysis-bar">
@@ -188,6 +198,8 @@ const AnalyticPage = ({ changeContent }) => {
           onDelete={handleDeleteQuiz}
         />
       )}
+              <ToastContainer />
+
     </div>
   );
 };

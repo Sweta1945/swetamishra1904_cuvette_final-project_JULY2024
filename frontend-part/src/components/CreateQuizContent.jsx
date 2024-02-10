@@ -4,9 +4,12 @@ import "../styles/CreateQuizPage.css";
 import { Link } from "react-router-dom";
 import FinalLinkPage from "./FinalLinkPage";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateQuizContent = ({ changeContent }) => {
   const [inputpart, setInputPart] = useState("");
+  const[loading, setLoading]=useState(false);
   const [contenthere, setContenthere] = useState("createQuiz-content");
   const [questions, setQuestions] = useState([
     {
@@ -124,14 +127,17 @@ const CreateQuizContent = ({ changeContent }) => {
   };
 
   const submitCheck = () => {
+    setError("");
     if (!["quiz", "poll"].includes(selectedQuizType)) {
       setError('Please select either "quiz" or "poll".');
       return;
     }
     if (title.trim() === "") {
       setError("Please provide a title for your quiz.");
+      toast.error("Please provide a title for your quiz."); 
       return;
-    }
+  }
+  setError("");
     setError("");
     setActiveIndex(0);
     setSelectProceedButton("continue");
@@ -144,19 +150,52 @@ const CreateQuizContent = ({ changeContent }) => {
   };
 
   const finalSubmitQuiz = async () => {
-    if (error) {
-      return; // Prevent submission if there is an error
-    }
-    // Check if the title and quiz type are provided
-    if (!title.trim()) {
-      setError("Please provide a title for your quiz.");
+    setLoading(true);
+
+    setError("");
+
+
+    //showing errorr for blank options
+    const hasBlankOptions = questions.some(question =>
+      question.options.some(option => option.trim() === "")
+    );
+  
+    if (hasBlankOptions) {
+      setError("Please fill in all option fields for questions (min 2, max 4).");
+      toast.error("Fill in all required fields")
+      setLoading(false);
       return;
     }
-    if (!["quiz", "poll"].includes(selectedQuizType)) {
-      setError('Please select either "quiz" or "poll".');
+      // showing errorr for-> an option type is selected for each question
+ 
+      for (const question of questions) {
+        if (!question.questionText.trim()) {
+          setError("Please provide a question for all questions.");
+          toast.error("Fill in all required fields")
+          setLoading(false);
+          return;
+        }
+        if (!question.optionContent) {
+          setError("Please select an option type for all questions.");
+          toast.error("Fill in all required fields")
+          setLoading(false);
+          return;
+        }
+      }
+
+      // showing error if correct answers are selected for each question
+    const hasUnansweredQuestion = questions.some(
+      (question) =>
+        selectedQuizType === "quiz" && question.correctAnswer === null
+    );
+    if (hasUnansweredQuestion) {
+      setError("Please select a correct answer for each question.");
+      toast.error("Fill in all required fields")
+      setLoading(false);
       return;
     }
 
+    
     // Prepare data to be submitted
     let quizDataToStore = {
       title,
@@ -201,8 +240,16 @@ const CreateQuizContent = ({ changeContent }) => {
         body: JSON.stringify(quizDataToStore),
       });
       if (!response.ok) {
+        toast.error("Did not got response from backend")
+        setLoading(false);
+
         throw new Error("Failed to create quiz");
       }
+
+      console.log("am getting sucess")
+      toast.success("Quiz submitted successfully!");
+      
+
       const data = await response.json();
       setQuizIdHere(data._id);
       console.log(data._id);
@@ -211,6 +258,7 @@ const CreateQuizContent = ({ changeContent }) => {
     } catch (error) {
       console.error("Error creating quiz:", error.message);
       setError("Timed up!. Please try login again.");
+      setLoading(false);
     }
   };
 
@@ -272,6 +320,32 @@ const CreateQuizContent = ({ changeContent }) => {
       setError("Please select a correct answer for the previous question.");
       return;
     }
+
+
+    // showing error  if correct answers are selected for quiz questions
+  if (selectedQuizType === "quiz") {
+    const hasCorrectAnswers = questions.every(question =>
+      question.correctAnswer !== null && question.correctAnswer !== ""
+    );
+
+    if (!hasCorrectAnswers) {
+      setError("Please select a correct answer for each quiz question.");
+      return;
+    }
+  }
+
+  // showing error if all question inputs are filled
+  const hasFilledQuestionInputs = questions.every(question =>
+    question.questionText.trim() !== ""
+  );
+
+  if (!hasFilledQuestionInputs) {
+    setError("Please fill in all question fields.");
+    return;
+  }
+
+
+
     if (questions.length < 5) {
       const newQuestion = {
         questionText: "",
@@ -735,16 +809,23 @@ const CreateQuizContent = ({ changeContent }) => {
             >
               Cancel
             </button>
-            <button
-              onClick={() => finalSubmitQuiz()}
-              className={`continue_button ${
-                selectProceedButton === "continue"
-                  ? "selectedProceed-continue"
-                  : "continue_button"
-              }`}
-            >
-              Continue
-            </button>
+            {loading ? (
+  <button className="selectedProceed-continue" disabled>
+    Creating Quiz...
+  </button>
+) : (
+  <button
+    onClick={() => finalSubmitQuiz()}
+    className={`continue_button ${
+      selectProceedButton === "continue"
+        ? "selectedProceed-continue"
+        : "continue_button"
+    }`}
+  >
+    Continue
+  </button>
+)}
+
           </div>
         </div>
       )}
@@ -824,6 +905,7 @@ const CreateQuizContent = ({ changeContent }) => {
           </div>
         </div>
       )}
+        <ToastContainer />
     </div>
   );
 };

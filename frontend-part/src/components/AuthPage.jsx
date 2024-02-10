@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/AuthPage.css";
+import loadingSpinner from "../assets/loading-spinner.gif"; 
 
 const apiUrl = "https://backend-part-3u6u.onrender.com/api";
 const AuthComponent = () => {
@@ -193,8 +194,15 @@ const AuthComponent = () => {
 
   return (
     <div className="authPage">
+    
       <div className="show-selected">
+    
         <h1 className="heading-quizzie">QUIZZIE</h1>
+        {isLoading && (
+      <div className="loading-spinner">
+        <img src={loadingSpinner} alt="Loading..."  className="spinner" />
+      </div>
+    )}
         <span className="toggle-buttons">
           <button
             className={`signup-toggle ${

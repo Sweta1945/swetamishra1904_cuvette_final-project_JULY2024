@@ -4,7 +4,8 @@ import "../styles/CreateQuizPage.css";
 import { Link } from "react-router-dom";
 import FinalLinkPage from "./FinalLinkPage";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditPage = ({ changeContent, quizId }) => {
   const [inputpart, setInputPart] = useState("");
@@ -42,6 +43,7 @@ const EditPage = ({ changeContent, quizId }) => {
 
   useEffect(() => {
     const fetchQuizData = async () => {
+      toast.error("! Select option type of your choice for every question")
       try {
         const response = await fetch(`https://backend-part-3u6u.onrender.com/api/quiz-data/${quizId}`);
         if (!response.ok) {
@@ -153,22 +155,11 @@ const EditPage = ({ changeContent, quizId }) => {
 
   const finalSubmit = async () => {
     setIsLoading(true);
-  
-    if (error) {
-      setIsLoading(false); // Reset loading state if there's an error
-      window.alert("attempt failed! retry")
-      return; // Prevent submission if there is an error
-    }
-   
-    // Check if the title and quiz type are provided
-    if (!title.trim()) {
-      setError("Please provide a title for your quiz.");
-      return;
-    }
-    if (!["quiz", "poll"].includes(selectedQuizType)) {
-      setError('Please select either "quiz" or "poll".');
-      return;
-    }
+    setError("");
+
+
+    
+    
   
     // Prepare data to be submitted
     let quizDataToStore = {
@@ -759,7 +750,8 @@ const EditPage = ({ changeContent, quizId }) => {
             )}
           </div>
         </div>
-      
+        <ToastContainer />
+
     </div>
   );
 };

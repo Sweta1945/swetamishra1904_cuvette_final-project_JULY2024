@@ -59,3 +59,22 @@ text-align: center;
     margin-right: 10%;
 
 }
+
+.cross{
+    font-family: "Poppins", sans-serif;
+
+    font-weight: 500;
+    color: white;
+    margin-left: 95%;
+    margin-top: 0;
+    border: 1px solid red;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
