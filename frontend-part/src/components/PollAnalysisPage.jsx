@@ -58,8 +58,9 @@ const PollAnalysisPage = ({ quizId }) => {
       <div className="header">
         <h1>{quizTitle} Analysis</h1>
         <div className="para">
-          <p className="created-date">Created on: {createdAt ? formatDate(createdAt) : "Loading..."}</p>
-          <p>Impressions: {impressions}</p> 
+         <p className="created-date">Created on: {createdAt ? formatDate(createdAt) : "Loading..."}</p>
+<p>Impressions: {impressions ? impressions : "Loading..."}</p>
+
         </div>
       </div>
       <div className="questions">

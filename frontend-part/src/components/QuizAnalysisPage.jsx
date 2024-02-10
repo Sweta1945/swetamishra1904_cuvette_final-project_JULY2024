@@ -67,8 +67,9 @@ function QuizAnalysisPage({ quizId }) {
           <>
             <h1 className="quizzy-heading">{quizTitle} Analysis</h1> 
             <div className="para">
-              <p className="created-date">Created on: {createdAt ? formatDate(createdAt) : "Loading..."}</p>
-              <p>Impressions: {impressions}</p> 
+            <p className="created-date">Created on: {createdAt ? formatDate(createdAt) : "Loading..."}</p>
+<p>Impressions: {impressions ? impressions : "Loading..."}</p>
+
             </div>
           </>
         )}
