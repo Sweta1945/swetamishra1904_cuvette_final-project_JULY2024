@@ -214,6 +214,8 @@ const CreateQuizContent = ({ changeContent }) => {
     };
 
     console.log("Quiz Data to Store:", quizDataToStore); // Check quizDataToStore before submission
+    toast.success("Quiz submitted successfully!");
+
 
     // Clearing localStorage and resetting the form state
     localStorage.removeItem("quizData");
@@ -246,9 +248,7 @@ const CreateQuizContent = ({ changeContent }) => {
         throw new Error("Failed to create quiz");
       }
 
-      console.log("am getting sucess")
-      toast.success("Quiz submitted successfully!");
-      
+      console.log("am getting sucess")      
 
       const data = await response.json();
       setQuizIdHere(data._id);
